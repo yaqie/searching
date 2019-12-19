@@ -1,0 +1,15 @@
+Masuk ke phpmyadmin, trus tulis
+Rumus :
+ALTER TABLE namatable ADD FULLTEXT(nama_field)
+contoh :
+ALTER TABLE produk ADD FULLTEXT(nama_produk)
+
+Query untuk pencariannya di website atau backendnya :
+rumus :
+SELECT * FROM `namatable` WHERE MATCH(nama_field) AGAINST ('kata pencarian' IN BOOLEAN MODE)
+contoh :
+SELECT * FROM `produk` WHERE MATCH(nama_produk) AGAINST ('kursi hitam' IN BOOLEAN MODE)
+contoh 2 (paling relevan di atas) :
+SELECT * FROM `produk` WHERE MATCH(nama_produk) AGAINST ('kursi hitam' IN BOOLEAN MODE) ORDER BY MATCH(nama_produk) AGAINST ('kursi hitam' IN BOOLEAN MODE) DESC
+contoh 3 (baca score) :
+SELECT *, MATCH(nama_produk) AGAINST ('kursi hitam' IN BOOLEAN MODE) AS score FROM `produk` WHERE MATCH(nama_produk) AGAINST ('kursi hitam' IN BOOLEAN MODE)
